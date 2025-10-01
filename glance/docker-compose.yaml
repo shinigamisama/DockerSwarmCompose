@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  glance:
+    image: glanceapp/glance
+    dns:
+      - ${DNS_1}
+      - ${DNS_2}
+    environment:
+      - TZ=${GENERIC_TIMEZONE}
+      - OVERSEERR_URL=${OVERSEERR_URL}
+      - OVERSEERR_API_KEY=${OVERSEERR_API_KEY}
+    volumes:
+      - ${GLANCE_DATA_DIR}/config:/app/config
+    ports:
+      - ${GLANCE_PORT}:8080
+    deploy:
+      replicas: 1
+    restart: unless-stopped
